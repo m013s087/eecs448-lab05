@@ -7,7 +7,7 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
-$query = "SELECT Name, CountryCode FROM City ORDER by ID DESC LIMIT 50,5";
+$query = "SELECT user_id FROM users where *";
 
 if ($result = $mysqli->query($query)) {
 
@@ -15,8 +15,19 @@ if ($result = $mysqli->query($query)) {
     while ($row = $result->fetch_assoc()) {
         // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
         if($POST_["U_id"] ==$row["user_id"])
+        {
+            printf("User already exists\n");
+            $result->free();
+            exit();
+        }
     }
-
+    if($result = $mysqli->query($query))
+    {}
+    $query = "INSERT INTO users (user_id) VALUES ($POST_["U_id"])";
+    if($result = $mysqli->query($query))
+    {
+        printf("User Added");
+    }
     /* free result set */
     $result->free();
 }
