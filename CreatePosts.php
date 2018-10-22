@@ -14,18 +14,17 @@ if ($result = $mysqli->query($query)) {
     /* fetch associative array */
     while ($row = $result->fetch_assoc()) {
         // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
-        if($_POST["U_id"] ==$row["user_id"])
+        if($_POST["U_id"] ==$row["user_id"] && $_POST["content"]=="")
         {
-            printf("User already exists\n");
-            $result->free();
+			$query = "INSERT INTO posts (author_id,content) VALUES ($_POST["U_id"],$_POST["content"])";
+			if($result = $mysqli->query($query))
+			{
+				printf("post Added");
+			}$result->free();
             exit();
         }
     }
-    $query = "INSERT INTO users (user_id) VALUES ($_POST["U_id"])";
-    if($result = $mysqli->query($query))
-    {
-        printf("User Added");
-    }
+
     /* free result set */
     $result->free();
 }
