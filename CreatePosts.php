@@ -14,7 +14,7 @@ if ($result = $mysqli->query($query)) {
     /* fetch associative array */
     while ($row = $result->fetch_assoc()) {
         // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
-        if($_POST["U_id"] ==$row["user_id"] && $_POST["content"]=="")
+        if($_POST["U_id"] ==$row["user_id"] && $_POST["content"]!="")
         {
 			$query = "INSERT INTO posts (author_id,content) VALUES ($_POST["U_id"],$_POST["content"])";
 			if($result = $mysqli->query($query))
