@@ -14,14 +14,14 @@ if ($result = $mysqli->query($query)) {
     /* fetch associative array */
     while ($row = $result->fetch_assoc()) {
         // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
-        if($_POST["U_id"] ==$row["user_id"])
+        if($_POST["u_id"] ==$row["user_id"])
         {
             printf("User already exists\n");
             $result->free();
             exit();
         }
     }
-    $query = "INSERT INTO users (user_id) VALUES ($_POST["U_id"])";
+    $query = "INSERT INTO users (user_id) VALUES ($_POST["u_id"])";
     if($result = $mysqli->query($query))
     {
         printf("User Added");
