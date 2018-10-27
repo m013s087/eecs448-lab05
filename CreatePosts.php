@@ -1,33 +1,30 @@
 <?php
-$mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "my_password", "m013s087");
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+$mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
 
 /* check connection */
 if ($mysqli->connect_errno) {
     printf("Connect failed: %s\n", $mysqli->connect_error);
     exit();
 }
+$user = $_POST["u_id"];
+$content = $_POST["content"];
+$query = "SELECT user_id FROM users where user_id='".$user."'";
 
-$query = "SELECT user_id FROM users where *";
+if ($mysqli->query($query)) {
 
-if ($result = $mysqli->query($query)) {
-
-    /* fetch associative array */
-    while ($row = $result->fetch_assoc()) {
-        // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
-        if($_POST["u_id"] ==$row["user_id"] && $_POST["content"]!="")
+    if($_POST["content"]!="")
+    {
+        $query = "INSERT INTO posts (author_id,content) VALUES ('".$user."','".$content."')";
+        if($mysqli->query($query))
         {
-			$query = "INSERT INTO posts (author_id,content) VALUES ($_POST["u_id"],$_POST["content"])";
-			if($result = $mysqli->query($query))
-			{
-				printf("post Added");
-            }
-            $result->free();
-            exit();
+            echo "Post Added";
         }
     }
 
     /* free result set */
-    $result->free();
+    // $result->free();
 }
 
 /* close connection */

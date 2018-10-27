@@ -1,5 +1,7 @@
 <?php
-$mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "my_password", "m013s087");
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+$mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
 
 /* check connection */
 if ($mysqli->connect_errno) {
@@ -7,27 +9,15 @@ if ($mysqli->connect_errno) {
     exit();
 }
 
-$query = "SELECT user_id FROM users where *";
-
-if ($result = $mysqli->query($query)) {
-
-    /* fetch associative array */
-    while ($row = $result->fetch_assoc()) {
-        // printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
-        if($_POST["u_id"] ==$row["user_id"])
-        {
-            printf("User already exists\n");
-            $result->free();
-            exit();
-        }
-    }
-    $query = "INSERT INTO users (user_id) VALUES ($_POST["u_id"])";
-    if($result = $mysqli->query($query))
-    {
-        printf("User Added");
-    }
-    /* free result set */
-    $result->free();
+$user = $_POST["u_id"];
+$query = "INSERT INTO users (user_id) VALUES ('" . $user ."')";
+if($mysqli->query($query))
+{
+    echo "User Added";
+}
+else
+{
+    echo "Duplicate user";
 }
 
 /* close connection */

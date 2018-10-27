@@ -1,14 +1,17 @@
 <?php
-$query = "SELECT user_id FROM users where *";
-while ($row = $result->fetch_assoc()) {
-	// printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
-	printf("<table><th>Users</th>");
-	if($_POST["U_id"] ==$row["user_id"])
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+$mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
+$query = "SELECT user_id FROM users";
+echo "<table><th>USERS</th>";
+if($result = $mysqli->query($query))
+{
+	while ($row = $result->fetch_assoc()) 
 	{
-		printf("<tr><td> %s </td></tr>\n", (string)$row["user_id"]);
-		$result->free();
-		exit();
+		echo "<tr><td>".(string)$row['user_id']."</td></tr>\n";
 	}
-	printf("</table>");
+	echo "</table>";
+	$result->free();
 }
+$mysqli->close();
 ?>

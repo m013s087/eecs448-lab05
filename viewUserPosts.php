@@ -1,12 +1,24 @@
 <?php
-$query = "SELECT user_id FROM users where author_id == $_POST["u_id"]";
-printf("<table><th>Users</th>");
-while ($row = $result->fetch_assoc()) {
+	error_reporting(E_ALL);
+	ini_set("display_errors", 1);
+$mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
+$auth = $_POST['u_id'];
+$query = "SELECT content FROM posts where author_id ='".$auth."'";
+
+if($result = $mysqli->query($query))
+{
+	echo "<table><th>POSTS BY: ".$auth."</th>";
+	while ($row = $result->fetch_assoc()) 
+	{
 	// printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
 	
-	printf("<tr><td> %s </td></tr>\n", (string)$row["content"]);
-	$result->free();
+		echo "<tr><td>".(string)$row['content']."</td></tr>\n";
+	
 
+	}
+	echo "</table>";
+	$result->free();
+	
 }
-printf("</table>");
+
 ?>
