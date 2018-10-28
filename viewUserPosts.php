@@ -2,6 +2,14 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 $mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
+
+/* check connection */
+if ($mysqli->connect_errno) 
+{
+	echo "Connect failed: ".$mysqli->connect_error."\n";
+	exit();
+}   
+
 $auth = $_POST['u_id'];
 $query = "SELECT content FROM posts where author_id ='".$auth."'";
 

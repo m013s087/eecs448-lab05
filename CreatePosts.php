@@ -4,10 +4,11 @@
 $mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
 
 /* check connection */
-if ($mysqli->connect_errno) {
-    printf("Connect failed: %s\n", $mysqli->connect_error);
+if ($mysqli->connect_errno) 
+{
+    echo "Connect failed: ".$mysqli->connect_error."\n";
     exit();
-}
+}   
 $user = $_POST["u_id"];
 $content = $_POST["content"];
 $query = "SELECT user_id FROM users where user_id='".$user."'";
