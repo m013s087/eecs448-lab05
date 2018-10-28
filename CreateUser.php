@@ -4,7 +4,8 @@
 $mysqli = new mysqli("mysql.eecs.ku.edu", "m013s087", "aequa3Ke", "m013s087");
 
 /* check connection */
-if ($mysqli->connect_errno) {
+if ($mysqli->connect_errno) 
+{
     printf("Connect failed: %s\n", $mysqli->connect_error);
     exit();
 }

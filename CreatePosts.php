@@ -12,19 +12,28 @@ $user = $_POST["u_id"];
 $content = $_POST["content"];
 $query = "SELECT user_id FROM users where user_id='".$user."'";
 
-if ($mysqli->query($query)) {
-
-    if($_POST["content"]!="")
+if ($result=$mysqli->query($query)  ) 
+{
+    $row_cnt = $result->num_rows;
+    if($content!="" && $user!="" && $row_cnt!=0)
     {
         $query = "INSERT INTO posts (author_id,content) VALUES ('".$user."','".$content."')";
         if($mysqli->query($query))
         {
             echo "Post Added";
         }
+        else
+        {
+            echo "Post Failed";
+        }
+    }
+    else
+    {
+        echo "Invalid Field";
     }
 
     /* free result set */
-    // $result->free();
+    $result->free();
 }
 
 /* close connection */
